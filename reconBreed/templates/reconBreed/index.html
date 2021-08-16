@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dog Breed Reconnaissance</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/reconBreed/styles.css">
+</head>
+
+<body>
+<div class="container">
+    <h1>Please upload an image !</h1>
+    <p>We will try to recognize the dog's breed. You can also upload an image with a human.
+        In this case we will tell you what dog's breed this human looks like :). This might be quite long, pls be patient</p>
+    <form method = "post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+    {% if messages %}
+        {% for message in messages %}
+                {{ message }}
+        {% endfor %}
+    {% endif %}
+</div>
+</body>
+
+</html>
