@@ -48,6 +48,7 @@ Alternatively, if you decide to install the package in the list without the requ
 This project contains:
   - the Jupyter Notebook I used as a first step.
   - the requirements to install required packages
+  - The screenshot foler is to store images I display here
   - all others files are for the app and the model
 
 <a name="Running"></a>
@@ -59,6 +60,6 @@ Follow the following steps to run the project:
 If it works, you should have this output:
 Image
 4. Now go to your local server at the following address: http://127.0.0.1/
-
+![Server running](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/main/screenshot/runserver.PNG)
 And here we go, You can upload the image you want :)
 
