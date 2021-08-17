@@ -104,17 +104,18 @@ Then I just wrote a simple algorithm to run the correct detection for images and
 
 ### 8th Step - Results
 Even if you can find it in the notebook, here are the results:
-![brad pitt](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/brad%20pitt.jpg)
+
+<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/brad%20pitt.jpg" width="500" />
 Output: 'This person looks like the breed: English Springer Spaniel'
-![golden retriver](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/golden_retriver.jpg)
+<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/golden_retriver.jpg" width="500" />
 Output: 'The preticted breed for this dog is: Golden Retriever'
-![malinois](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/malinois.jpg)
+<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/malinois.jpg" width="500" />
 Output: 'The preticted breed for this dog is: Belgian Malinois'
-![pitbull](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/pitbull.jpg)
+<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/pitbull.jpg" width="500" />
 Output: 'The preticted breed for this dog is: American Staffordshire Terrier'
-![Scarlett Johanson](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/scarlett.jpg)
+<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/scarlett.jpg" width="500" />
 Output: 'This person looks like the breed: Silky Terrier'
-![cat](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/cat.jpg)
+<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/cat.jpg" width="500" />
 Output: "Looks like we can't detect a dog neither a human in this picture. We're sorry."
 
 ### 9th Step - Doing the application
