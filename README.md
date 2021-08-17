@@ -45,6 +45,12 @@ or
 Alternatively, if you decide to install the package in the list without the requirements.txt, you can use:
 ```pip install <PackageName>```
 
+### Anaconda
+If you are a user of anaconda as I am, you can install the requirements with:
+``` conda install --file requirements.txt```
+or
+``` conda install --file requirements-gpu.txt```
+
 <a name="Description"></a>
 ## Description of files
 This project contains:
