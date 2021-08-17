@@ -6,6 +6,7 @@
 2. [Requirements](#Requirements)
 3. [Description of files](#Description)
 4. [Running the project](#Running)
+5. [Conclusion](#Conclusion)
 
 <a name="Introduction"></a>
 ## Introduction
@@ -60,6 +61,11 @@ Follow the following steps to run the project:
 If it works, you should have this output:
 Image
 4. Now go to your local server at the following address: http://127.0.0.1/
-![Server running](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/main/screenshot/runserver.PNG)
+![Server running](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/runserver.PNG)
 And here we go, You can upload the image you want :)
 
+<a name="Conclusion"></a>
+## Conclusion
+I had lost of fun doing this project. As you can see, the model is actually pretty good at finding the breed. As long as the image we give is a good one (not too
+much noise, good focus etc.) the model performs really great. The fact that it give the closest breed for a human, is actually fun too. I just observed the 
+breed are almost the same for this (Maltese, Hawanese etc.)
