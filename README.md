@@ -7,6 +7,7 @@
 3. [Description of files](#Description)
 4. [Running the project](#Running)
 5. [Conclusion](#Conclusion)
+6. [Web site](#Website)
 
 <a name="Introduction"></a>
 ## Introduction
@@ -68,4 +69,9 @@ And here we go, You can upload the image you want :)
 ## Conclusion
 I had lost of fun doing this project. As you can see, the model is actually pretty good at finding the breed. As long as the image we give is a good one (not too
 much noise, good focus etc.) the model performs really great. The fact that it give the closest breed for a human, is actually fun too. I just observed the 
-breed are almost the same for this (Maltese, Hawanese etc.)
+breed are almost the same for this (Maltese, Hawanese etc.). But I guess human face is close to these breeds. Anyway Thank you for this project !
+
+<a name="Website"></a>
+## Web site
+![Website index](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/1stStep.PNG)
+![Website prediction](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/Step%202.PNG)
