@@ -56,12 +56,27 @@ We are using 2 datasets provided by Udacity. A dataset with human faces and anot
  
   - There are 13233 total human images.
  
- <a name="Analysis2"></a>
- ## Data Visualization
- We can take a look at our data and specially they are seen with cv2 by using the CascadeFaces xml. Example:
- ![face_detection](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/face.png)
+We can also see the breed dispertion. Here the most present breeds in the dataset
  
- <a name="DataPre"></a>
+<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/stats1.PNG" />
+ 
+And here the less present ones:
+ 
+<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/stats2.PNG" />
+
+We can also watch the mean and the standard deviation:
+
+<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/stats3.PNG" />
+ 
+So as we can see, the mean of the number of images for each classes is about 63. But as the std is around 15, we need to be careful as this can bring bias in our model (the less represented breeds could never come in predictions for example).
+
+
+<a name="Analysis2"></a>
+## Data Visualization
+We can take a look at our data and specially they are seen with cv2 by using the CascadeFaces xml. Example:
+![face_detection](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/face.png)
+ 
+<a name="DataPre"></a>
  ## Data Preprocessing
  When using TensorFlow as backend, Keras CNNs require a 4D array (which we'll also refer to as a 4D tensor) as input, with shape
 
