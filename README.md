@@ -2,26 +2,136 @@
 
 
 ## Summary
-1. [Project Definition](#Introduction)
-2. [Requirements](#Requirements)
-3. [Description of files](#Description)
-4. [Analysis](#Analysis)
-5. [Running the project](#Running)
-6. [Conclusion](#Conclusion)
-7. [Web site](#Website)
+1. [Project Overview](#Introduction)
+2. [Project Statement](#projectStatement)
+3. [Metrics](#Metrics)
+4. [Data Exploration](#Analysis1)
+5. [Data Visualization](#Analysis2)
+6. [Data Preprocessing](#DataPre)
+7. [Implementation](#Implementation)
+8. [Refinement](#Refinement)
+9. [Model Evaluation and Validation](#ModelEv)
+10. [Justification](#Justification)
+11. [Reflection](#Reflection)
+12. [Improvement](#Improvement)
+13. [Description of files](#Description)
+14. [Requirements](#Requirements)
+15. [Running the project](#Running)
+16. [WebSite Sreenchots](#Website)
 
 <a name="Introduction"></a>
-## Project Definition
-This project I realized is the final one of the Udacity's Data Science Nano Degree. The goal of this project is to use a CNN (Convolutionnal Neural Network) classifier 
-to:
-  1. Detect the breed of a dog in an image we give
-  2. If we gave an image with a human face on it, the model should identify to what dog's breed the face looks like.
+## Project Overview
+This project is the Capstone project of the Udacity's Data Science Nanodegree. This project is about CNN (Convolutionnal Neural Network). A CNN is a neural network architecture which is particularly good in computer visions tasks. Here we are using it for a an Image Classifier task. However, training CNNs is a long process (It can take several weeks !) so we're going to use transfer learning in this project. Transfer learning is about taking an already trained Neural Network to use it in our project. We can add layers, but it will be way faster than training the whole model.
 
-Udacity provided 2 datasets. The first one with dogs and the second one with human faces.
+<a name="projectStatement"></a>
+## Project Statement
+The goal of this project is to construct a dog's breed classifier for user. The idea is that when a user give an image of a dog, the model must find the breed of this dog. Plus, if the user give an image with a human face on it, the model should return the closest dog's breed this face looks like.
+In addition, a small web-app is asked in order to allow the user an easy interaction support. Here's the step of this project:
+  1. Datasets
+  2. Detect Human
+  3. Detect Dogs
+  4. Create a CNN to Classify Dog Breeds (from Scratch)
+  5. Use a CNN to Classify Dog Breeds
+  6. Create a CNN to Classify Dog Breeds (using Transfer Learning)
+  7. Write your algorithm
 
-Note: The model have to have at least 60% of accuracy. The model I proposed here has 80% (you can check it in the Jupyter Notebook)
-On top of that, there is a small web-app to communicate with model. On it, you can upload the image you want to run the model. Please note it can be quite long getting 
-the result. You can see pictures of the website on the bottom of this file.
+I was not particularly waiting for a great accuracy since I know CNNs' training are really long. Let's see what we have !
+
+<a name="Metrics"></a>
+## Metrics
+I am using the accuracy to evaluate models for this project. Accuracy is an intuitive measurement for classification problems.
+
+Accuracy is a good choice when datasets are not unbalanced. As we have plenty of dogs and human faces images, it seems to be a good choice here.
+
+<a name="Analysis1"></a>
+## Data Exploration
+We are using 2 datasets provided by Udacity. A dataset with human faces and another with dogs images. We want to split data into train/validation/test sets. Here's a small list of our data:
+
+  - There are 133 total dog categories.
+  - There are 8351 total dog images.
+
+  - There are 6680 training dog images.
+  - There are 835 validation dog images.
+  - There are 836 test dog images.
+ 
+  - There are 13233 total human images.
+ 
+ <a name="Analysis2"></a>
+ ## Data Visualization
+ We can take a look at our data and specially they are seen with cv2 by using the CascadeFaces xml. Example:
+ ![face_detection](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/face.png)
+ 
+ <a name="DataPre"></a>
+ ## Data Preprocessing
+ When using TensorFlow as backend, Keras CNNs require a 4D array (which we'll also refer to as a 4D tensor) as input, with shape
+
+```(nb_samples,rows,columns,channels),```
+
+where nb_samples corresponds to the total number of images (or samples), and rows, columns, and channels correspond to the number of rows, columns, and channels for each image, respectively. 
+So this is a thing we need to handle in our project. You can see it in the jupyter Notebook.
+
+<a name="Implementation"></a>
+## Implementation
+I first tried to implement a Neural Network from scratch. The specs are:
+<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/model.PNG" />
+
+As we can see I am using 4 CNNs layer with MaxPooling for dimmension reduction. For the output of this part I'm using GlobalPooling to drasticaly reduce dimmensions.
+I then used a Fully connected network with 2 layer and dropout to prevent from overfitting. I used ReLU function for all layers as it works realy great.
+Finnaly, my output layer is a 133 neurons one (1 for each breed).
+
+That gives me the result of more than 9%. Which is not so great but, as this is so hard for DL, Udacity asked to get more than 1% of accuracy
+
+<a name="Refinement"></a>
+## Refinement
+After we realized how hard it is to train model, it was time to improve our accuracy. So we used transfer learning.
+I used the ResNet50 model as a starter. I achived a result of more than 80% of accuracy. The gap with the first one is really huge !
+
+<a name="ModelEv"></a>
+## Model Evaluation and Validation
+The model is simpler here:
+
+<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/model2.PNG" />
+
+I just have the pre-trained ResNet50 model and I added an output layer for the breed classification. The minimum accuracy to pass is 60%, but the model performed really well with 80%.
+Let me show you some results:
+
+<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/brad%20pitt.jpg" width="400" />
+Output: 'This person looks like the breed: English Springer Spaniel'
+
+<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/golden_retriver.jpg" width="400" />
+Output: 'The preticted breed for this dog is: Golden Retriever'
+
+<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/malinois.jpg" width="400" />
+Output: 'The preticted breed for this dog is: Belgian Malinois'
+
+<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/pitbull.jpg" width="400" />
+Output: 'The preticted breed for this dog is: American Staffordshire Terrier'
+
+<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/scarlett.jpg" width="400" />
+Output: 'This person looks like the breed: Silky Terrier'
+
+<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/cat.jpg" width="400" />
+Output: "Looks like we can't detect a dog neither a human in this picture. We're sorry."
+
+<a name="Justification"></a>
+## Justification
+The improvement is so huge thanks to the pre-trained model. The ResNet50 model is a complec neural network and has been train for way longer than the model we did from scratch. This is why this is so good now.
+
+<a name="Reflection"></a>
+## Reflection
+We now have a great model to predict dog's breed. Thanks to transfer learning and patience, we did a usefull classifier. It was actually fun to work on it. One difficult thing was to not be lost on all details specially about shapes, transformation etc. For example I lost some times when doing the web-app, as versions between the notebook and my local virtual env were too different and I could not install Keras 2.0.2 anymore.
+
+<a name="Improvement"></a>
+## Improvement
+We could try to increase accuracy by doing data augmentation, running the training for a longer epochs size and fine tune each hyperparameters. I did try data augmentation but the process was really slow and the accuracy didn't really improve. My thought is that my model wasn't complex enough and there was not enough epochs.
+
+<a name="Description"></a>
+## Description of files
+This project contains:
+  - the Jupyter Notebook I used as a first step.
+  - the requirements to install required packages
+  - The screenshot foler is to store images I display here
+  - all others files are for the app and the model
 
 <a name="Requirements"></a>
 ## Requirements
@@ -54,72 +164,6 @@ If you are a user of anaconda as I am, you can install the requirements with:
 or
 ``` conda install --file requirements-gpu.txt```
 
-<a name="Description"></a>
-## Description of files
-This project contains:
-  - the Jupyter Notebook I used as a first step.
-  - the requirements to install required packages
-  - The screenshot foler is to store images I display here
-  - all others files are for the app and the model
- 
-<a name="Analysis"></a>
-## Analysis
-Note: I STRONGLY advise you to open the jupyter notebook as you will find more informations and justification in it.
-
-### 1st Step - Datasets
-After splitting the datasets into train/validation/test sets, we have the following informations:
-
-  - There are 133 total dog categories.
-  - There are 8351 total dog images.
-
-  - There are 6680 training dog images.
-  - There are 835 validation dog images.
-  - There are 836 test dog images.
- 
-  - There are 13233 total human images.
-
-### 2nd Step - Detect Human
-By using the "CascadeClassifier" from cv2, we can easily identify human faces. Here's an example:
-
-![face_detection](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/face.png)
-
-### 3rd Step - Detect Dogs
-This step is aimed to detect dogs on images. By using the ResNet50 model, we obtained a perfect score (100% accuracy). This is great for the rest of our work.
-
-### 4th Step - Create a CNN to Classify Dog Breeds (from Scratch)
-It is not difficult to find dogs but it is to find their breed ! Even for a human it is hard. That's why, the requirement for this model was at least 1% of accuracy
-Mine get an accuracy of more than 9%. We can find in the jupyter Notebook the details and explanations for this model.
-
-### 5th Step - Use a CNN to Classify Dog Breeds
-Now in order to get  a better accuracy but with a raisonable training time, we will use transfer learning. The model we are going to use here is the VGG16.
-Just by adding a fully connected layer for the output, in order to classify dogs (133 neurons - 1 for each breed) we obtain an accuracy of more than 40%. Great improvment !
-
-### 6th Step - Create a CNN to Classify Dog Breeds (using Transfer Learning)
-It is now time to implement our model using transfer learning.
-So for this step I decided to use the ResNet50 model because it was perfect for the dog detection. I just added a fully connected layer for the output and ran it for 50 epochs with a batch sizes of 20.
-With that, I get an accuracy of more than 80%. Now we have a quite serious model !
-
-### 7th Step - Write your algorithm
-Then I just wrote a simple algorithm to run the correct detection for images and to return the correct information
-
-### 8th Step - Results
-Even if you can find it in the notebook, here are the results:
-
-<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/brad%20pitt.jpg" width="500" />
-Output: 'This person looks like the breed: English Springer Spaniel'
-<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/golden_retriver.jpg" width="500" />
-Output: 'The preticted breed for this dog is: Golden Retriever'
-<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/malinois.jpg" width="500" />
-Output: 'The preticted breed for this dog is: Belgian Malinois'
-<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/pitbull.jpg" width="500" />
-Output: 'The preticted breed for this dog is: American Staffordshire Terrier'
-<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/scarlett.jpg" width="500" />
-Output: 'This person looks like the breed: Silky Terrier'
-<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/cat.jpg" width="500" />
-Output: "Looks like we can't detect a dog neither a human in this picture. We're sorry."
-
-### 9th Step - Doing the application
-The last step was to design the application or write a blog post. I decided to do a small app as i think this is more interesting to experiment than just reading the article. At least that's what I prefer :).
 
 <a name="Running"></a>
 ## Running the project
@@ -133,13 +177,7 @@ Image
 ![Server running](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/runserver.PNG)
 And here we go, You can upload the image you want :)
 
-<a name="Conclusion"></a>
-## Conclusion
-I had lost of fun doing this project. As you can see, the model is actually pretty good at finding the breed. As long as the image we give is a good one (not too
-much noise, good focus etc.) the model performs really great. The fact that it give the closest breed for a human, is actually fun too. I just observed the 
-breed are almost the same for this (Maltese, Hawanese etc.). But I guess human face is close to these breeds. We could try to increase accuracy by doing data augmentation, running the training for a longer epochs size and fine tune each hyperparameters. I did try data augmentation but the process was really slow and the accuracy didn't really improve. My thought is that my model wasn't complex enough and mo epochs to low.
-
 <a name="Website"></a>
-## Web site
+## WebSite Sreenchots
 ![Website index](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/1stStep.PNG)
 ![Website prediction](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/Step%202.PNG)
