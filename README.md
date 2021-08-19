@@ -156,7 +156,75 @@ The model is simpler here:
 
 <img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/model2.PNG" />
 
-I just have the pre-trained ResNet50 model and I added an output layer for the breed classification. The minimum accuracy to pass is 60%, but the model performed really well with 80%.
+I just have the pre-trained ResNet50 model and I added an output layer for the breed classification. The minimum accuracy to pass is 60%, but the model performed really well with 80%. We can evaluate how robust is my model with K-fold cross validation. It means that we are going to run several times the training process with a random state on the splitting part. So data in train/validation sets are going to be shuffled between each run. I decided to run it 10 times. Here's the code for the training and evalutation step:
+```
+def evaluate_model(train_train, train_targets, val_train, val_targets):
+    """ Train and evaluate the model
+    
+    INPUTS:
+    -------
+    train_train: array
+        The train data
+    train_targets: array
+        The train targets
+    val_train: array
+        The train validation 
+    val_targets: array
+        The validation targets
+    
+    OUTPUT:
+    -------
+    ResNet50_model: The model used
+    test_accuracy: the accuracy of the model
+    """
+    
+    Resnet50_2_model = Sequential()
+    Resnet50_2_model.add(GlobalAveragePooling2D(input_shape=train_Resnet50.shape[1:]))
+    Resnet50_2_model.add(Dense(133, activation='softmax'))
+    Resnet50_2_model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+    
+    checkpointer = ModelCheckpoint(filepath='saved_models/weights.best.ResNet50_2.hdf5', 
+                               verbose=0, save_best_only=True)
+
+    Resnet50_2_model.fit(train_train, train_targets, 
+              validation_data=(val_train, val_targets),
+              epochs=50, batch_size=20, callbacks=[checkpointer], verbose=0)
+    
+    Resnet50_2_model.load_weights('saved_models/weights.best.ResNet50_2.hdf5')
+    
+    Resnet50_Predictions = [np.argmax(Resnet50_2_model.predict(np.expand_dims(feature, axis=0))) for feature in test_Resnet50]
+    test_accuracy = 100*np.sum(np.array(Resnet50_Predictions)==np.argmax(test_targets, axis=1))/len(Resnet50_Predictions)
+    
+    return ResNet50_model, test_accuracy
+```
+
+And here is the code to perform the cross validation:
+```
+X = np.concatenate((train_Resnet50, valid_Resnet50), axis=0)
+y = np.concatenate((train_targets, valid_targets), axis=0)
+
+n_folds = 10
+cv_scores, model_history = [], []
+for _ in range(n_folds):
+    train_train, val_train, _train_targets, _val_targets = train_test_split(X, y, test_size=0.20, 
+                                                                          random_state=np.random.randint(1, 1000, 1)[0])
+    
+    ResNet50_model, test_accuracy = evaluate_model(train_train, _train_targets, val_train, _val_targets)
+    print(f"Accuracy: {test_accuracy:.2f}%")
+    cv_scores.append(test_accuracy)
+    model_history.append(ResNet50_model)
+
+print(f'Mean accuracy: {np.mean(cv_scores):.2f}')
+print(f"Standard deviation: {np.std(cv_scores)}")
+```
+
+This is the output:
+
+<img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/kfoldCrossVal.PNG" />
+
+So as we can see, the model has an average accuracy of more than 80% on 10 runs with random shuffling. I computed the standard deviation which is pretty low. It means the model is robust enough to hundle small variation in the training process.
+
+
 Let me show you some results:
 
 <img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/reconBreed/data/brad%20pitt.jpg" width="400" />
@@ -179,7 +247,7 @@ Output: "Looks like we can't detect a dog neither a human in this picture. We're
 
 <a name="Justification"></a>
 ## Justification
-The improvement is so huge thanks to the pre-trained model. The ResNet50 model is a complec neural network and has been train for way longer than the model we did from scratch. This is why this is so good now.
+The improvement is so huge thanks to the pre-trained model. The ResNet50 model is a complex neural network and has been train for way longer than the model we did from scratch. This is why this is so good now.
 
 <a name="Reflection"></a>
 ## Reflection
