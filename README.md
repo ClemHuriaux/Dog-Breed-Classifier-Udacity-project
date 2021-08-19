@@ -222,7 +222,7 @@ This is the output:
 
 <img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/kfoldCrossVal.PNG" />
 
-So as we can see, the model has an average accuracy of more than 80% on 10 runs with random shuffling. I computed the standard deviation which is pretty low. It means the model is robust enough to hundle small variation in the training process.
+So as we can see, the model has an average accuracy of more than 80% on 10 runs with random shuffling. I computed the standard deviation which is pretty low. It means the model is robust enough to hundle small variations in the training process.
 
 
 Let me show you some results:
