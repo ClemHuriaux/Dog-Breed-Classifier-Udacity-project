@@ -91,6 +91,49 @@ We can take a look at our data and specially how they are seen with cv2 by using
 where nb_samples corresponds to the total number of images (or samples), and rows, columns, and channels correspond to the number of rows, columns, and channels for each image, respectively. 
 So this is a thing we need to handle in our project. You can see it in the jupyter Notebook.
 
+Here we can see the process:
+
+```
+def path_to_tensor(img_path):
+  # loads RGB image as PIL.Image.Image type
+  img = image.load_img(img_path, target_size=(224, 224))
+  # convert PIL.Image.Image type to 3D tensor with shape (224, 224, 3)
+  x = image.img_to_array(img)
+  # convert 3D tensor to 4D tensor with shape (1, 224, 224, 3) and return 4D tensor
+  return np.expand_dims(x, axis=0)
+  ```
+We load image, change the type to tensor with the shape (x, y, z) where x and y are the size (width and height) and z is the depth. 3 for the 3 colors (RGB).
+Then we convert the tensor for the 4D one by adding the n_samples.
+ Finally we juste have to create our list of tensors:
+ 
+ ```
+ def paths_to_tensor(img_paths):
+    list_of_tensors = [path_to_tensor(img_path) for img_path in tqdm(img_paths)]
+    return np.vstack(list_of_tensors)
+```
+
+In order to use our images into the ResNet50 model, we need to :
+  - Reordering the chanel to convert RGB images to BGR
+  - Add a normalization step that the mean pixel must be subtracted from every pixel in each image
+The good thing is that Keras give us the preprocess_input function to do this step.
+
+```
+from keras.applications.resnet50 import preprocess_input, decode_predictions
+
+def ResNet50_predict_labels(img_path):
+    # returns prediction vector for image located at img_path
+    img = preprocess_input(path_to_tensor(img_path))
+    return np.argmax(ResNet50_model.predict(img))
+ ```
+
+Last thing, to detect dog, we need to check if our predictions return a value between 151 and 268 (corresponding to keys in the dictionary of breeds).
+
+```
+def dog_detector(img_path):
+    prediction = ResNet50_predict_labels(img_path)
+    return ((prediction <= 268) & (prediction >= 151)) 
+```
+    
 <a name="Implementation"></a>
 ## Implementation
 I first tried to implement a Neural Network from scratch. The specs are:
