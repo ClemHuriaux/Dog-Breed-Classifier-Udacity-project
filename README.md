@@ -73,8 +73,14 @@ So as we can see, the mean of the number of images for each classes is about 63.
 
 <a name="Analysis2"></a>
 ## Data Visualization
-We can take a look at our data and specially they are seen with cv2 by using the CascadeFaces xml. Example:
+We can take a look at our data and specially how they are seen with cv2 by using the CascadeFaces xml. Example:
 ![face_detection](https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/face.png)
+ 
+ It would be interesting too, to display a bar chart of breeds repartition in our datasets
+ 
+ <img src="https://github.com/ClemHuriaux/Dog-Breed-Classifier-Udacity-project/blob/master/screenshot/BreedRepartition.png" width=1000/>
+ 
+ That allows us to see a disproportion in our data.
  
 <a name="DataPre"></a>
  ## Data Preprocessing
